@@ -1,5 +1,12 @@
 var pingpong = {};
 pingpong.pressedKeys = [];
+pingpong.ball = {
+  speed: 5,
+  x: 150,
+  y: 100,
+  directionX: 1,
+  directionY: 1
+}
 
 var KEY = {
   UP: 38,
@@ -22,7 +29,44 @@ $(function() {
 });
 
 function gameloop() {
+  moveBall();
   movePaddles();
+}
+
+function moveBall() {
+  // Reference useful variables.
+  var playgroundHeight = parseInt($("#playground").height());
+  var playgroundWidth  = parseInt($("#playground").width());
+  var ball = pingpong.ball;
+
+  // Check playground boundary.
+  // Bottom edge.
+  if (ball.y + ball.speed * ball.directionY > playgroundHeight) {
+    ball.directionY = -1;
+  }
+  // Top edge.
+  if (ball.y + ball.speed * ball.directionY < 0) {
+    ball.directionY = 1;
+  }
+  // Right edge.
+  if (ball.x + ball.speed * ball.directionX > playgroundWidth) {
+    ball.directionX = -1;
+  }
+  if (ball.x + ball.speed * ball.directionX < 0) {
+    ball.directionX = 1;
+  }
+
+
+  // Check moving paddle here, later.
+
+  // Actually move the ball with speed and direction.
+  ball.x += ball.speed * ball.directionX;
+  ball.y += ball.speed * ball.directionY;
+
+  $("#ball").css({
+    "left" : ball.x,
+    "top" : ball.y
+  });
 }
 
 function movePaddles() {
@@ -47,5 +91,4 @@ function movePaddles() {
     var top = parseInt($("#paddleA").css("top"));
     $("#paddleA").css("top", top + 5);
   }
-
 }
