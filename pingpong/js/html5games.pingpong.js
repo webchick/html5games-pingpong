@@ -1,4 +1,7 @@
-var pingpong = {};
+var pingpong = {
+  scoreA: 0,
+  scoreB: 0
+};
 pingpong.pressedKeys = [];
 pingpong.ball = {
   speed: 5,
@@ -97,6 +100,8 @@ function moveBall() {
       "top": ball.y
     });
     ball.directionX = -1;
+    pingpong.scoreA++;
+    $("#scoreA").html(pingpong.scoreA);
   }
 
   // Check left edge.
@@ -109,6 +114,8 @@ function moveBall() {
       "top": ball.y
     });
     ball.directionX = 1;
+    pingpong.scoreB++;
+    $("#scoreB").html(pingpong.scoreB);
   }
 
   // Actually move the ball on screen.
