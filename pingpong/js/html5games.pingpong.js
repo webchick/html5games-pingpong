@@ -56,17 +56,67 @@ function moveBall() {
     ball.directionX = 1;
   }
 
-
-  // Check moving paddle here, later.
-
-  // Actually move the ball with speed and direction.
+  // Calculate new ball position
   ball.x += ball.speed * ball.directionX;
   ball.y += ball.speed * ball.directionY;
 
+  // Check left paddle.
+  var paddleAX       = parseInt($("#paddleA").css("left")) +
+                       parseInt($("#paddleA").css("width"));
+  var paddleAYBottom = parseInt($("#paddleA").css("top")) +
+                       parseInt($("#paddleA").css("height"));
+  var paddleAYTop    = parseInt($("#paddleA").css("top"));
+
+  if (ball.x + ball.speed * ball.directionX < paddleAX) {
+    if (ball.y + ball.speed * ball.directionY <= paddleAYBottom &&
+        ball.y + ball.speed * ball.directionY >= paddleAYTop) {
+      ball.directionX = 1;
+    }
+  }
+
+  // Check right paddle.
+  var paddleBX       = parseInt($("#paddleB").css("left"));
+  var paddleBYBottom = parseInt($("#paddleB").css("top")) +
+                       parseInt($("#paddleB").css("height"));
+  var paddleBYTop    = parseInt($("#paddleB").css("top"));
+
+  if (ball.x + ball.speed * ball.directionX >= paddleBX) {
+    if (ball.y + ball.speed * ball.directionY <= paddleBYBottom &&
+        ball.y + ball.speed * ball.directionY >= paddleBYTop) {
+      ball.directionX = -1;
+    }
+  }
+
+  // Check right edge.
+  if (ball.x + ball.speed * ball.directionX > playgroundWidth) {
+    // Player B lost; reset the ball.
+    ball.x = 250;
+    ball.y = 100;
+    $("#ball").css({
+      "left": ball.x,
+      "top": ball.y
+    });
+    ball.directionX = -1;
+  }
+
+  // Check left edge.
+  if (ball.x + ball.speed * ball.directionX < 0) {
+    // Player A lost; reset the ball.
+    ball.x = 150;
+    ball.y = 100;
+    $("#ball").css({
+      "left": ball.x,
+      "top": ball.y
+    });
+    ball.directionX = 1;
+  }
+
+  // Actually move the ball on screen.
   $("#ball").css({
     "left" : ball.x,
     "top" : ball.y
   });
+
 }
 
 function movePaddles() {
