@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Ping Pong</title>
+  <title>ICE HOCKEY</title>
 
   <style>
     #playground {
-      background: #e0ffe0 url("images/pixel_grid.jpg");
-      width: 400px;
-      height: 200px;
+      background: #e0ffe0 url("images/rink.gif");
+      width: 780px;
+      height: 398px;
       position: relative;
       overflow: hidden;
     }
     #ball {
-      background: #fbb;
+      background: #000;
       position: absolute;
       width: 20px;
       height: 20px;
@@ -26,17 +26,22 @@
       left: 50px;
       top: 70px;
       position: absolute;
-      width: 30px;
-      height: 70px;
+      width: 100px;
+      height: 100px;
+    }
+    #paddleA {
+      background: url("images/player-left.gif");
+      left: 100px;
     }
     #paddleB {
-      left: 320px;
+      background: url("images/player-right.gif");
+      left: 575px;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Ping Pong</h1>
+    <h1>Ice Hockey!</h1>
   </header>
   <div id="game">
     <div id="playground">
@@ -51,7 +56,7 @@
     <div class="score">Player B: <span id="scoreB">0</span></div>
   </div>
   <footer>
-    This is an example of a Ping Pong game.
+    Player 1 press W / S to move up/down. Player 2 press up/down arrows. First to 5 points wins!
   </footer>
   <script src="js/jquery-1.7.2.min.js"></script>
   <script src="js/html5games.pingpong.js"></script>
