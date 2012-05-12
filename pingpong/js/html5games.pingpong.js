@@ -37,4 +37,15 @@ function movePaddles() {
     var top = parseInt($("#paddleB").css("top"));
     $("#paddleB").css("top", top + 5);
   }
+  if (pingpong.pressedKeys[KEY.W]) { // w 
+    // Move the paddle A up 5 pixels.
+    var top = parseInt($("#paddleA").css("top"));
+    $("#paddleA").css("top", top - 5);
+  }
+  if (pingpong.pressedKeys[KEY.S]) { // s
+    // Move the paddle A down 5 pixels.
+    var top = parseInt($("#paddleA").css("top"));
+    $("#paddleA").css("top", top + 5);
+  }
+
 }
