@@ -1,3 +1,6 @@
+var pingpong = {};
+pingpong.pressedKeys = [];
+
 var KEY = {
   UP: 38,
   DOWN: 40,
@@ -6,34 +9,32 @@ var KEY = {
 }
 
 $(function() {
-  // Listen for the key down event.
-  $(document).keydown(function(e) {
-    switch(e.which) {
-      case KEY.UP: // arrow-up
-        // Get the current paddle B's top value.
-        var top = parseInt($("#paddleB").css("top"));
-        // Move the paddle B up 5 pixels.
-        $("#paddleB").css("top", top - 5);
-        break;
-      case KEY.DOWN: // arrow-down
-        var top = parseInt($("#paddleB").css("top"));
-        // Move the paddle B down 5 pixels.
-        $("#paddleB").css("top", top + 5);
-        break;
-      case KEY.W: // w 
-        // Get the current paddle B's top value.
-        var top = parseInt($("#paddleA").css("top"));
-        // Move the paddle A up 5 pixels.
-        $("#paddleA").css("top", top - 5);
-        break;
-      case KEY.S: // s
-        var top = parseInt($("#paddleA").css("top"));
-        // Move the paddle A down 5 pixels.
-        $("#paddleA").css("top", top + 5);
-        break;
-    }
-  });
+  // Call gameloop every 30 milliseconds.
+  pingpong.timer = setInterval(gameloop, 30);
 
-  $("#paddleA").css("top", "60px");
-  $("#paddleB").css("top", "20px");
+  // Mark down which key is up and down into array called pressedKeys.
+  $(document).keydown(function(e) {
+    pingpong.pressedKeys[e.which] = true;
+  });
+  $(document).keyup(function(e) {
+    pingpong.pressedKeys[e.which] = false;
+  });
 });
+
+function gameloop() {
+  movePaddles();
+}
+
+function movePaddles() {
+  // Use our custom timer to continuously check if a key is pressed.
+  if (pingpong.pressedKeys[KEY.UP]) { // arrow-up
+    // Move the paddle B up 5 pixels.
+    var top = parseInt($("#paddleB").css("top"));
+    $("#paddleB").css("top", top - 5);
+  }
+  if (pingpong.pressedKeys[KEY.DOWN]) { // arrow-down
+    // Move the paddle B down 5 pixels.
+    var top = parseInt($("#paddleB").css("top"));
+    $("#paddleB").css("top", top + 5);
+  }
+}
