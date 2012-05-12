@@ -124,6 +124,24 @@ function moveBall() {
     "top" : ball.y
   });
 
+  // Declare a weiner.
+  var winner = 0;
+  if (pingpong.scoreA == 5) {
+    alert("Player A won!");
+    winner = 1;
+  }
+  else if (pingpong.playerB == 5) {
+    alert("Player B won!");
+    winner = 1;
+  }
+  if (winner) {
+    pingpong.scoreA = 0;
+    pingpong.scoreB = 0;
+    $("#scoreA").html(pingpong.scoreA);
+    $("#scoreB").html(pingpong.scoreB);
+  }
+
+
 }
 
 function movePaddles() {
